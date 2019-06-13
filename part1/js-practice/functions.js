@@ -30,3 +30,23 @@ const average = function(a, b) {
 
 const result = average(2, 5)
 // result is now 3.5
+
+
+
+const arto = {
+  name: 'Arto Hellas',
+  age: 35,
+  education: 'PhD',
+  greet: function() {
+    console.log('hello, my name is', this.name)
+  },
+  doAddition: function(a, b) {
+    console.log(a + b)
+  },
+}
+
+arto.doAddition(1, 4)        // 5 is printed
+
+const referenceToAdditon = arto.doAddition
+referenceToAdditon(10, 15)   // 25 is printed
+
