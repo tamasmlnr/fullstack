@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const App = () => {
+const App = (props) => {
   const [ counter, setCounter ] = useState(0)
 
-  setTimeout(
-    () => setCounter(counter + 1),
-    1000
-  )
+  const handleClick = () => {
+    setCounter(counter+1)
+  }
 
   return (
-    <div>{counter}</div>
+    <div>
+      <div>{counter}</div>
+      <button onClick={handleClick}>
+        plus
+      </button>
+    </div>
   )
 }
 
