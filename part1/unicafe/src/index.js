@@ -9,13 +9,32 @@ const Button = ({handleClick, text}) =>  {
   </button>
 }
 
-const Statistics = ({good, neutral, bad}) => {
+const Statistics = ({ratings}) => {
+  const good = ratings[0]
+  const neutral = ratings [1]
+  const bad = ratings [2]
   return <div>
     good: {good} <br/>
-    neutral: {neutral}<br/>
-    bad: {bad}<br/>
-
+    neutral: {neutral} <br/>
+    bad: {bad} <br/>
+  <Details ratings={ratings}></Details>
   </div>
+}
+
+const Details = ({ratings}) => {
+  const good = ratings[0]
+  const neutral = ratings [1]
+  const bad = ratings [2]
+
+  const all = good + neutral + bad
+  const avg = all == 0 ? "No ratings yet" : (good  - bad)/all
+  const positive = all == 0 ? "No ratings yet" : good / all
+
+  return <>
+  All: {all} <br/>
+  Average: {avg} <br/>
+  Positive: {positive}
+  </>
 }
 
 const App = () => {
@@ -43,7 +62,7 @@ const App = () => {
     <Button handleClick={addNeutral} text="neutral"></Button>
     <Button handleClick={addBad} text="bad"></Button>
     <Header title="statistics"></Header>
-    <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
+    <Statistics ratings={[good, neutral, bad]}></Statistics>
     </div>
   )
 }
