@@ -13,27 +13,23 @@ const Statistics = ({ratings}) => {
   const good = ratings[0]
   const neutral = ratings [1]
   const bad = ratings [2]
-  return <div>
-    good: {good} <br/>
-    neutral: {neutral} <br/>
-    bad: {bad} <br/>
-  <Details ratings={ratings}></Details>
+  const all = good + neutral + bad
+  const avg =  (good  - bad)/all
+  const positive = good / all
+
+  return all == 0 ?  "No feedback given"  : 
+  <div>
+    <Statistic text="good" value ={good} />
+    <Statistic text="neutral" value ={neutral} />
+    <Statistic text="bad" value ={bad} />
+    <Statistic text="average" value={avg} />
+    <Statistic text="positive" value={positive} />
   </div>
 }
 
-const Details = ({ratings}) => {
-  const good = ratings[0]
-  const neutral = ratings [1]
-  const bad = ratings [2]
-
-  const all = good + neutral + bad
-  const avg = all == 0 ? "No ratings yet" : (good  - bad)/all
-  const positive = all == 0 ? "No ratings yet" : good / all
-
+const Statistic = ({text, value}) => {
   return <>
-  All: {all} <br/>
-  Average: {avg} <br/>
-  Positive: {positive}
+  {text}  {value} <br/>
   </>
 }
 
@@ -55,15 +51,20 @@ const App = () => {
     setBad(bad+1)
   }
 
+  const all = good + neutral + bad
+  const avg =  (good  - bad)/all
+  const positive = good / all
+
   return (
     <div>
-    <Header title="give feedback"></Header>
-    <Button handleClick={addGood} text="good"></Button>
-    <Button handleClick={addNeutral} text="neutral"></Button>
-    <Button handleClick={addBad} text="bad"></Button>
-    <Header title="statistics"></Header>
-    <Statistics ratings={[good, neutral, bad]}></Statistics>
+    <Header title="give feedback"/>
+    <Button handleClick={addGood} text="good"/>
+    <Button handleClick={addNeutral} text="neutral"/>
+    <Button handleClick={addBad} text="bad"/>
+    <Header title="statistics"/>
+    <Statistics ratings={[good, neutral, bad]} />
     </div>
+
   )
 }
 
