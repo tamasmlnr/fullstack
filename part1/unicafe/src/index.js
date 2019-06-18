@@ -11,26 +11,29 @@ const Button = ({handleClick, text}) =>  {
 
 const Statistics = ({ratings}) => {
   const good = ratings[0]
-  const neutral = ratings [1]
-  const bad = ratings [2]
-  const all = good + neutral + bad
-  const avg =  (good  - bad)/all
-  const positive = good / all
+  const neutral = ratings[1]
+  const bad = ratings[2]
+  const all =good + neutral + bad
+  const avg =(good  - bad)/all
+  const positive =good / all
 
-  return all == 0 ?  "No feedback given"  : 
-  <div>
+  return all === 0 ?  "No feedback given"  : 
+  <table>
+    <tbody>
     <Statistic text="good" value ={good} />
     <Statistic text="neutral" value ={neutral} />
     <Statistic text="bad" value ={bad} />
     <Statistic text="average" value={avg} />
     <Statistic text="positive" value={positive} />
-  </div>
+    </tbody>
+  </table>
 }
 
 const Statistic = ({text, value}) => {
-  return <>
-  {text}  {value} <br/>
-  </>
+  return <tr>
+  <td>{text}</td> 
+  <td>{value}</td>
+  </tr>
 }
 
 const App = () => {
@@ -50,10 +53,6 @@ const App = () => {
   const addBad = () => {
     setBad(bad+1)
   }
-
-  const all = good + neutral + bad
-  const avg =  (good  - bad)/all
-  const positive = good / all
 
   return (
     <div>
