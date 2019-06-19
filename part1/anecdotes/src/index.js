@@ -1,12 +1,24 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const App = (props) => {
-  const [selected, setSelected] = useState(0)
+const Button = ({handleClick}) => {
+  return <>
+    <button onClick = {handleClick}>Gimme a random quote</button>
+  </>
+}
+
+
+const App = ({anecdotes}) => {
+   const [selected, setSelected] = useState(0)
+
+  const randomQuote = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length)); 
+  }
 
   return (
     <div>
-      {props.anecdotes[selected]}
+      {anecdotes[selected]} <br/>
+      <Button handleClick = {randomQuote}></Button>
     </div>
   )
 }
