@@ -1,10 +1,28 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Header = ({text}) => {
+  return <h1>{text}</h1>
+}
+
 const Button = ({handleClick, text}) => {
   return <>
     <button onClick = {handleClick}>{text}</button>
   </>
+}
+
+const Anecdote = ({quote, vote}) => {
+  return <div>
+    {quote}
+    <br/>
+    <Votes vote={vote} />
+  </div>
+}
+
+const Votes = ({vote}) => {
+  return <div>
+    has {vote} votes
+  </div>
 }
 
 const App = ({anecdotes}) => {
@@ -15,15 +33,23 @@ const App = ({anecdotes}) => {
     setSelected(Math.floor(Math.random() * anecdotes.length)); 
   }
 
-  const vote = (element) => {
-    votes[element]++
+  const maxVote = Math.max(...votes)
+  const mostVotedAnecdote = votes.indexOf(maxVote)
+
+  const vote = (element) => () => {
+    const votesStateCopy = [...votes]
+    votesStateCopy[element]++
+    setVotes(votesStateCopy)
   }
 
   return (
     <div>
-      {anecdotes[selected]} <br/>
-      <Button handleClick = {vote(1)} text = "Vote"></Button>
+      <Header text="Anecdote of the day"/>
+      <Anecdote quote={anecdotes[selected]}  vote={votes[selected]} />
+      <Button handleClick = {vote(selected)} text = "Vote"></Button>
       <Button handleClick = {randomQuote} text = "Gimme a random anecdote"></Button>
+      <Header text="Anecdote with the most votes"></Header>
+      <Anecdote quote={anecdotes[mostVotedAnecdote]} vote = {maxVote}/>
     </div>
   )
 }
