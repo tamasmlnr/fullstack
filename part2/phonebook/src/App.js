@@ -1,5 +1,31 @@
 import React, { useState } from "react";
 
+const Filter = ({searchValue}) => {
+  return (
+    <>
+      <form>
+        <div>
+           filter show with <input onChange={searchValue} />
+        </div>
+ </form>
+ </>)
+}
+
+const PersonForm = ({submitName, newName, handleChange, newNumber, handleNumberChange}) => {
+return( <form onSubmit={submitName}>
+        <div>
+          name: <input value={newName} onChange={handleChange} />
+        </div>
+        <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+)
+}
+
 const Phonebook = ({ people }) => {
   return people.map(p => (
     <Person name={p.name} number={p.number} key={p.name} />
@@ -55,23 +81,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>
-          filter show with <input onChange={searchForValue} />
-        </div>
-      </form>
+      <Filter searchValue={searchForValue}></Filter>
       <h2>Add new person</h2>
-      <form onSubmit={submitName}>
-        <div>
-          name: <input value={newName} onChange={handleChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm submitName={submitName} newName = {newName} 
+      handleChange = {handleChange} newNumber = {newNumber} handleNumberChange={handleNumberChange}></PersonForm>
       <h2>Numbers</h2>
       <Phonebook people={filteredPeople} />
     </div>
