@@ -52,7 +52,6 @@ const App = () => {
     axios
     .get("http://localhost:3001/persons")
     .then(response => {
-      console.log("kaki")
       setPersons(response.data)
     })
   }, [])
@@ -82,7 +81,7 @@ const App = () => {
       : window.alert(`${newName} is already in the phone book!`);
   };
 
-  var filteredPeople = persons.filter(p => p.name.toLowerCase().includes(filterWord.toLowerCase()));
+  var filteredPeople = persons.filter(c => c.name.toLowerCase().includes(filterWord.toLowerCase()))
 
   return (
     <div>
