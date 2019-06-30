@@ -60,7 +60,7 @@ const App = () => {
   const handleDelete = (person) => {
     const result = window.confirm(`Delete ${person.name} ?`)
     if (result) {
-      numberService.deletePerson(person.id).then(setPersons(persons.filter(p=>p.id!=person.id)))
+      numberService.deletePerson(person.id).then(setPersons(persons.filter(p=>p.id!==person.id)))
     }
   }
 
@@ -85,13 +85,23 @@ const App = () => {
     };
     persons.filter(person => person.name === newName).length === 0
       ? addPerson(persons, nameToAdd)
-      : window.alert(`${newName} is already in the phone book!`);
+      : modifyPerson(persons, nameToAdd)
   }
 
   const addPerson = (persons, nameToAdd) => {
     numberService.create(nameToAdd).then(response =>
       setPersons(persons.concat(response))
     )
+  }
+
+  const modifyPerson = (persons, nameToAdd) => {
+    const result = window.confirm(`${newName} is already in the phone book! Would you like to replace the number with the new one?`);
+    if (result) {
+      const idToChange = persons.find(p => nameToAdd.name === p.name).id
+      numberService.modifyPerson(nameToAdd, idToChange)
+      .then(result => setPersons(persons.map(person => person.id !== idToChange ? person : result)))
+    }
+
   }
 
   const filteredPeople = persons.filter(c => c.name.toLowerCase().includes(filterWord.toLowerCase()))

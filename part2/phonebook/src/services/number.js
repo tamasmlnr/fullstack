@@ -20,9 +20,22 @@ const deletePerson = async id => {
   return response.data;
 }
 
+// const modifyPerson = async person, idToChange => {
+//   const urltoModify = `${url}/${person.id}`
+//   const request = axios.put(urltoModify, person)
+//   const response = await request
+//   return response.data
+// 
+
+const modifyPerson = async (newPerson, idToChange) => {
+  const request = axios.put(`${url}/${idToChange}`, newPerson)
+  const response = await request;
+  return response.data;
+}
 
 export default {
   getAll,
   create,
-  deletePerson
+  deletePerson,
+  modifyPerson
 }
