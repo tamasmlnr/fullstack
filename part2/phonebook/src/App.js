@@ -43,6 +43,28 @@ const Person = ({ person, handleDelete }) => {
   );
 }
 
+const Notification = ({ message }) => {
+  if (message === '') {
+    return null
+  }
+
+  const notif = {
+    color: 'green',
+    background: 'lightgrey',
+    fontSize: '20px',
+    borderStyle: 'solid',
+    borderRadius: '5px',
+    padding: '10px',
+    marginBottom: '10px'
+  }
+
+  return (
+    <div style={notif}>
+      {message}
+    </div>
+  )
+}
+
 const DeleteButton = ({ person, handleDelete }) => {
   return <button onClick={() => handleDelete(person)}>delete</button>
 }
@@ -52,6 +74,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterWord, setFilterWord] = useState("");
+  const [confirmMessage, setConfirmMessage]= useState("");
 
   useEffect(() => {
     numberService.getAll().then(response => setPersons(response))
@@ -92,6 +115,10 @@ const App = () => {
     numberService.create(nameToAdd).then(response =>
       setPersons(persons.concat(response))
     )
+    setConfirmMessage(`${nameToAdd.name} successfully added!`)
+    setTimeout(() => {
+      setConfirmMessage('')
+    }, 5000)
   }
 
   const modifyPerson = (persons, nameToAdd) => {
@@ -101,7 +128,6 @@ const App = () => {
       numberService.modifyPerson(nameToAdd, idToChange)
       .then(result => setPersons(persons.map(person => person.id !== idToChange ? person : result)))
     }
-
   }
 
   const filteredPeople = persons.filter(c => c.name.toLowerCase().includes(filterWord.toLowerCase()))
@@ -109,6 +135,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={confirmMessage}></Notification>
       <Filter searchValue={searchForValue}></Filter>
       <h2>Add new person</h2>
       <PersonForm submitName={submitName} newName={newName}
