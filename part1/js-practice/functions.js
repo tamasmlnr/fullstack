@@ -1,3 +1,4 @@
+
 const separator = "_________________"
 
 const sum = (p1, p2) => {
@@ -50,3 +51,20 @@ arto.doAddition(1, 4)        // 5 is printed
 const referenceToAdditon = arto.doAddition
 referenceToAdditon(10, 15)   // 25 is printed
 
+console.log(separator)
+names = ['Bruce', 'Sylvester', 'Arnold']
+for (let name of names) {
+  console.log(name)
+}
+
+console.log(separator)
+
+const avg = (... args) => {
+  let sum = 0
+  for (let i = 0; i<args.length; i++) {
+    sum+=args[i]
+  }
+  return sum/args.length
+}
+
+console.log(avg(1,2,3,4))
