@@ -9,11 +9,16 @@
     "mongoose": "^5.6.3",
     "nodemon": "^1.19.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
   "scripts": {
     "watch": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
