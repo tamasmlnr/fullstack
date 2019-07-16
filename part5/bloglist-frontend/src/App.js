@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Blog from './components/Blog'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import SubmitBlog from './components/SubmitBlog'
@@ -109,7 +110,9 @@ const App = () => {
       <Welcome user={user.name} handleLogout={handleLogout}></Welcome>
       <BlogList inputBlogs={blogs} user={user.username}></BlogList>
       <p></p>
+      <Togglable buttonLabel='New post'>
       <SubmitBlog user={user} blogs={blogs} setBlogs={setBlogs}></SubmitBlog>
+      </Togglable>
     </div>
   )
 }
